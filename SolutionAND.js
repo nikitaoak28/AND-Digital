@@ -4,9 +4,13 @@
 let result = [];
 let combiStr;
 let p=document.getElementById('numbers') ;
-console.log(solution('236')); 
-console.log(solution('A 3B2 C6D')); 
-console.log(solution('ABC')); 
+
+console.log(solution('326'));
+ console.log(solution('A3B 2C 6D'));
+ console.log(solution('02518'));
+ console.log(solution('ABCD'));
+ console.log(solution('122'));
+ console.log(solution('203'));
 
 function solution(input) {
   const actualNum = input.replace(/[^0-9]/g,'');
@@ -18,9 +22,16 @@ function solution(input) {
       {
           //logic for combinations when its a number 
           let numLength=actualNum.length;  
-          permute(numLength,actualNum);   
-          result=result.sort(function(x,y){return y-x});     
-          p.innerText +='result of number'+actualNum+'='+result.join(',')+'\n';
+          permute(numLength,actualNum); 
+          let finalResult=[];  
+          finalResult.push(result[0]);
+          //if result has duplicates,remove them   
+          for(let i=0;i<result.length;i++)
+          {
+            (!finalResult.includes(result[i]))? finalResult.push(result[i]):null;
+          }
+          finalResult=finalResult.sort(function(x,y){return y-x});               
+          p.innerText +='result of number'+actualNum+'='+finalResult.join(',')+'\n';
           result=[];          
           numLength=0;           
       }
@@ -41,7 +52,7 @@ function solution(input) {
   {
     if(n===1)
     {     
-      result.push(combiStr.slice());     
+      result.push(combiStr);     
       return;
     }
     permute(n-1,combiStr);
